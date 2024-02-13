@@ -1,0 +1,7 @@
+# .gitignore
+**/.DS_Store
+*.iml
+**/target/
+**/.idea/
+**/.settings/
+

@@ -1,0 +1,24 @@
+[
+  {
+    "Número de Registro": 1,
+    "Nome de Usuário": "wendercouto",
+    "Credenciais": "123",
+    "Cargo": "user",
+    "Data de Criação": "11/02/2024 | 18:08:05s",
+    "Caminho de Imagem": "src/main/resources/static/imagens/perfil/imagensJPG/WhatsApp Image 2023-03-05 at 18.42.18.jpeg",
+    "Foto de Perfil": "null",
+    "Recado": "minhavidaboa",
+    "Reset de Credenciais": false
+  },
+  {
+    "Número de Registro": 2,
+    "Nome de Usuário": "daniel",
+    "Credenciais": "456",
+    "Cargo": "user",
+    "Data de Criação": "11/02/2024 | 18:31:54s",
+    "Caminho de Imagem": "null",
+    "Foto de Perfil": "null",
+    "Recado": "Olá, Eu me chamo: daniel",
+    "Reset de Credenciais": false
+  }
+]
