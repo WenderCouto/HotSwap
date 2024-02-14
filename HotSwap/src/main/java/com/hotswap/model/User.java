@@ -1,10 +1,10 @@
 package com.hotswap.model;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class User {
 
@@ -21,6 +21,9 @@ public class User {
     private String fotoPerfil; //url
     private String status;
     private boolean resetPassword;
+
+    private String tokenSecret;
+    private String tokenJWT;
 
     public User() {
     }
@@ -101,6 +104,22 @@ public class User {
 
     public void setResetPassword(boolean resetPassword) {
         this.resetPassword = resetPassword;
+    }
+
+    public String getTokenSecret() {
+        return tokenSecret;
+    }
+
+    public String getTokenJWT() {
+        return tokenJWT;
+    }
+
+    public void setTokenSecret(String tokenSecret) {
+        this.tokenSecret = tokenSecret;
+    }
+
+    public void setTokenJWT(String tokenJWT) {
+        this.tokenJWT = tokenJWT;
     }
 
 }

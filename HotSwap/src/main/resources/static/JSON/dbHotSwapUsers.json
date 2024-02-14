@@ -20,5 +20,16 @@
     "Foto de Perfil": "null",
     "Recado": "Olá, Eu me chamo: daniel",
     "Reset de Credenciais": false
+  },
+  {
+    "Número de Registro": 3,
+    "Nome de Usuário": "maria",
+    "Credenciais": "$2a$10$x11YihKRrGlqGsHMIXCxx.7pcBdvwmBtx/vTHbQZ4YsRWTPoHWNU.",
+    "Cargo": "user",
+    "Data de Criação": "14/02/2024 | 20:26:09s",
+    "Caminho de Imagem": "null",
+    "Foto de Perfil": "null",
+    "Recado": "Olá, Eu me chamo: maria",
+    "Reset de Credenciais": false
   }
 ]

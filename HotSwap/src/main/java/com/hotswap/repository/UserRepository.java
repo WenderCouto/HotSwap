@@ -1,18 +1,13 @@
 package com.hotswap.repository;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
-
+import com.hotswap.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.hotswap.model.User;
+import java.io.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 @Repository
 public class UserRepository {
@@ -79,8 +74,12 @@ public class UserRepository {
             File file = new File(userJsonDbDir);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String linha;
+            String registro = null;
             while ((linha = br.readLine()) != null) {
-                if (linha.trim().startsWith("\"Nome de Usuário\":")) {
+                if (linha.trim().startsWith("\"Número de Registro\":")) {
+                    registro = linha.split(":")[1].trim();
+                    registro = (registro.length() >= 3) ? registro.substring(1, registro.length() - 2) : registro;
+                } else if (linha.trim().startsWith("\"Nome de Usuário\":")) {
                     String userNameMatcher = linha.split(":")[1].trim();
                     userNameMatcher = userNameMatcher.substring(1, userNameMatcher.length() - 2);
                     if (username.equals(userNameMatcher)) {
@@ -90,19 +89,18 @@ public class UserRepository {
                             String passwordMatcher = linha.split(":")[1].trim();
                             passwordMatcher = passwordMatcher.substring(1, passwordMatcher.length() - 2);
                             if (password.equals(passwordMatcher)) {
-                                return "Usuário encontrado";
+                                return registro;
                             }
                         }
                     }
                 }
-                //br.close();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
         return "Usuário ou senha Inválidos";
     }
+
 
     public boolean findDuplicated(@RequestParam String username, @RequestParam String password) {
         try {

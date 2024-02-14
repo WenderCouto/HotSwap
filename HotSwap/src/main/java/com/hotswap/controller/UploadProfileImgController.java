@@ -35,8 +35,17 @@ public class UploadProfileImgController {
 		return null;
 	}
 
-    @RequestMapping(value = "/return", method = RequestMethod.GET) //Aqui devo passar o token também.
-    public ResponseEntity<Resource> getUserImagem(Integer registNumber ) throws FileNotFoundException {
-        return imgServe.getUserImagem(registNumber);
-    }
+	@RequestMapping(value = "/return", method = RequestMethod.GET)
+	public ResponseEntity<?> getUserImagem(Integer registnumber) {
+		if (registnumber == null) { //Objects.isNull(registnumber)  menos um import.
+			return new ResponseEntity<>("Opa, parece que seu número de registro único não está presente.", HttpStatus.BAD_REQUEST);
+		}
+		try {
+			Resource resource = (Resource) imgServe.getUserImagem(registnumber);
+			return new ResponseEntity<>(resource, HttpStatus.OK);
+		} catch (FileNotFoundException e) {
+			return new ResponseEntity<>("Arquivo não encontrado", HttpStatus.NOT_FOUND);
+		}
+	}
+
 }

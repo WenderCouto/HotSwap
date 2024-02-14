@@ -133,7 +133,7 @@ public class ImageExtensionPathService {
     public ResponseEntity<Resource> getUserImagem(int registnumber) throws FileNotFoundException {
 		String fullPath = userRepository.findImageFullPathByRegNumber(registnumber);
 		String defaultImage = "profile-picture.png";
-		
+
 		log.info(fullPath);
 
 		if (fullPath == null || !fileExists(fullPath)) {

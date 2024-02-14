@@ -1,14 +1,15 @@
 package com.hotswap.services;
 
-import com.hotswap.model.User;
-import com.hotswap.repository.UserRepository;
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.hotswap.model.User;
+import com.hotswap.repository.UserRepository;
 
 @Service
 public class UpdateUserDataService {
