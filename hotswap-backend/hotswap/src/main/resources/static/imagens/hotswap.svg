@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" >
+    <circle cx="60" cy="60" r="47.5" fill="black"/>
+    <circle cx="60" cy="60" r="45" fill="white"/>
+    <!-- Grupo de linhas 1 -->
+    <g class="g1">
+        <!-- Parte Superior Direito, Linha Menor -->
+        <line x1="72.5" y1="35" x2="72.5" y2="45" style="stroke:black;stroke-width:3"  stroke-linecap="round"/>
+
+        <!-- Parte Superior, Base -->
+        <line x1="72" y1="35" x2="35.5" y2="35" style="stroke:black;stroke-width:3" stroke-linecap="round" />
+
+        <!-- Parte Superior, Esquerda. -->
+        <line x1="35" y1="35" x2="35" y2="67.5" style="stroke:black;stroke-width:3" stroke-linecap="round" />
+
+        <!-- Parte Base Seta Direita. -->
+        <line x1="67.5" y1="67.5" x2="35.5" y2="67.5" style="stroke:black;stroke-width:3" stroke-linecap="round" />
+
+        <!-- Seta Direita -->
+        <polygon points="67.5,62.5 74.5,67.5 67.5,72.5" style="fill:black;stroke-width:0.25" />
+    </g>
+
+    <g class="middle">
+        <circle cx="65" cy="60" r="1" fill="transparent" stroke="black" stroke-width="0.5" />
+        <circle cx="60" cy="60" r="1" fill="transparent" stroke="black" stroke-width="0.5" />
+        <circle cx="55" cy="60" r="1" fill="transparent" stroke="black" stroke-width="0.5" />
+    </g>
+    <!-- Grupo de linhas 2 -->
+    <g class="g2">
+        <!-- Parte Inferior Esquerda. Linha menor -->
+        <line x1="47.5" y1="85" x2="47.5" y2="75" style="stroke:black;stroke-width:3" stroke-linecap="round"/>
+
+        <!-- Parte Inferior, Base -->
+        <line x1="48" y1="85" x2="84.5" y2="85" style="stroke:black;stroke-width:3" stroke-linecap="round" />
+
+        <!-- Parte Inferior, Direita. -->
+        <line x1="85" y1="85" x2="85" y2="52.5" style="stroke:black;stroke-width:3" stroke-linecap="round" />
+
+        <!-- Parte Base Seta Esquerda. -->
+        <line x1="52.5" y1="52.5" x2="84.5" y2="52.5" style="stroke:black;stroke-width:3" stroke-linecap="round" />
+
+        <!-- Seta Esquerda. -->
+        <polygon points="52.5,47.5 45.5,52.5 52.5,57.5" style="fill:black;stroke-width:0.25" />
+    </g>
+</svg>
+        <!-- Quer aprender sobre SVG? Dá uma olhada aqui: https://youtube.com/playlist?list=PLlAbYrWSYTiOufRJOeP73o4GR9N1afQdP&si=4lBYk6p-ZJ32zcM9 -->
+
+        <!-- style="stroke-dasharray: 39; stroke-dashoffset: 0;" g1 -->
+        <!-- var a = document.querySelector('.g1 line') -->
+        <!-- a.getTotalLenght() -->

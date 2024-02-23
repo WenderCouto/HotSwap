@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" style="background-color: gray;">
+    <circle cx="60" cy="60" r="47.5" fill="black"/>
+    <circle cx="60" cy="60" r="45" fill="white"/>
+    <!-- Vai ficar escondido por hora -->
+    <circle cx="60" cy="60" r="40" fill="transparent" stroke="black" stroke-width="2.5" stroke-dasharray="17.9" stroke-dashoffset="0" stroke-linecap="round"/>
+    <!-- Grupo de linhas 1 -->
+    <g class="g1">
+        <!-- Parte Superior Direito, Linha Menor -->
+        <line x1="72.5" y1="35" x2="72.5" y2="67" style="stroke:black;stroke-width:1" />
+
+        <!-- Parte Superior, Base -->
+        <line x1="73" y1="35" x2="34.5" y2="35" style="stroke:black;stroke-width:1" />
+
+        <!-- Parte Superior, Esquerda. -->
+        <line x1="35" y1="35" x2="35" y2="67.5" style="stroke:black;stroke-width:1" />
+
+        <!-- Parte Base Seta Direita. -->
+        <line x1="73" y1="67.5" x2="34.5" y2="67.5" style="stroke:black;stroke-width:1" />
+    </g>
+        <g id="upper_lines">
+        <line x1="68" y1="40" x2="40" y2="40" style="stroke:black;stroke-width:1"/>
+        <line x1="68" y1="45" x2="40" y2="45" style="stroke:black;stroke-width:1"/>
+        <line x1="68" y1="50" x2="40" y2="50" style="stroke:black;stroke-width:1"/>
+        <!-- Upper Smaller lines -->
+        <line  x1="40" y1="55" x2="45" y2="55" style="stroke:black;stroke-width:1"/>
+        <line  x1="40" y1="60" x2="45" y2="60" style="stroke:black;stroke-width:1"/>
+        </g>
+
+    <g class="middle">
+        <circle cx="65" cy="60" r="1" fill="transparent" stroke="black" stroke-width="0.5" />
+        <circle cx="60" cy="60" r="1" fill="transparent" stroke="black" stroke-width="0.5" />
+        <circle cx="55" cy="60" r="1" fill="transparent" stroke="black" stroke-width="0.5" />
+    </g>
+    <!-- Grupo de linhas 2 -->
+    <g class="g2">
+        <!-- Parte Inferior Esquerda. Linha menor -->
+        <line x1="47.5" y1="85" x2="47.5" y2="52.5" style="stroke:black;stroke-width:1" />
+
+        <!-- Parte Inferior, Base -->
+        <line x1="47" y1="85" x2="85.5" y2="85" style="stroke:black;stroke-width:1" />
+
+        <!-- Parte Inferior, Direita. -->
+        <line x1="85" y1="85" x2="85" y2="52.5" style="stroke:black;stroke-width:1" />
+
+        <!-- Parte Base Seta Esquerda. -->
+        <line x1="47" y1="52.5" x2="85.5" y2="52.5" style="stroke:black;stroke-width:1" />
+    </g>
+    <g id="lower_lines">
+        <line  x1="75" y1="65" x2="80" y2="65" style="stroke:black;stroke-width:1"/>
+        <line  x1="75" y1="60" x2="80" y2="60" style="stroke:black;stroke-width:1"/>
+        <!-- Lower larger lines -->
+        <line x1="52" y1="70" x2="80" y2="70" style="stroke:black;stroke-width:1"/>
+        <line x1="52" y1="75" x2="80" y2="75" style="stroke:black;stroke-width:1"/>
+        <line x1="52" y1="80" x2="80" y2="80" style="stroke:black;stroke-width:1"/>
+    </g>
+</svg>
+        <!-- Quer aprender sobre SVG? Dá uma olhada aqui: https://youtube.com/playlist?list=PLlAbYrWSYTiOufRJOeP73o4GR9N1afQdP&si=4lBYk6p-ZJ32zcM9 -->
+
+        <!-- style="stroke-dasharray: 39; stroke-dashoffset: 0;" g1 -->
+        <!-- var a = document.querySelector('.g1 line') -->
+        <!-- a.getTotalLenght() -->

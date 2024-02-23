@@ -1,0 +1,35 @@
+[
+  {
+    "Número de Registro": 1,
+    "Nome de Usuário": "wender",
+    "Credenciais": "$2a$10$X.X6ARxwk4lBzLHy/7Fm5e03xR9BDy6k2aPtBSzWSU7Bj486op.wm",
+    "Cargo": "user",
+    "Data de Criação": "22/02/2024 | 18:15:54s",
+    "Caminho de Imagem": "null",
+    "Foto de Perfil": "null",
+    "Recado": "Teste update",
+    "Reset de Credenciais": false
+  },
+  {
+    "Número de Registro": 2,
+    "Nome de Usuário": "mike",
+    "Credenciais": "$2a$10$jsnnOYYt6En731y3AjPDTuLqkrpN39oHSLkk42cMKtUKlKZS4mXG.",
+    "Cargo": "user",
+    "Data de Criação": "22/02/2024 | 19:17:14s",
+    "Caminho de Imagem": "null",
+    "Foto de Perfil": "null",
+    "Recado": "Olá, Eu me chamo: mike",
+    "Reset de Credenciais": false
+  },
+  {
+    "Número de Registro": 3,
+    "Nome de Usuário": "julia",
+    "Credenciais": "$2a$10$yMJcYD.2.dEDRevTzLwAJ.9zU6MPdLPboe1EA6ZN/uZviUrNvylBi",
+    "Cargo": "user",
+    "Data de Criação": "22/02/2024 | 21:33:18s",
+    "Caminho de Imagem": "null",
+    "Foto de Perfil": "null",
+    "Recado": "Olá, Eu me chamo: julia",
+    "Reset de Credenciais": false
+  }
+]
