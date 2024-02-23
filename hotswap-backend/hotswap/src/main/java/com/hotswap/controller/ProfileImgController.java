@@ -1,9 +1,9 @@
 package com.hotswap.controller;
 
-import java.io.FileNotFoundException;
-
+import com.hotswap.repository.UserRepository;
+import com.hotswap.services.ImageExtensionPathService;
+import com.hotswap.services.UserObjectDataService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hotswap.repository.UserRepository;
-import com.hotswap.services.ImageExtensionPathService;
+import java.io.FileNotFoundException;
 
 @RestController
 @RequestMapping("custom/api/imagem")
@@ -23,6 +22,8 @@ public class ProfileImgController {
 	UserRepository userRepository;
 	@Autowired
 	ImageExtensionPathService imgServe;
+	@Autowired
+	UserObjectDataService userObjectDataService;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.PUT)
 	public ResponseEntity<?> putUserImagem(@RequestParam("file") MultipartFile file, Integer registnumber, String roles) throws FileNotFoundException {
@@ -33,7 +34,7 @@ public class ProfileImgController {
 			return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Arquivo não existente ou corrompido.");
 		}
 		imgServe.processarImagem(file, registnumber, roles);
-		userRepository.findUserbyId(registnumber);
+
 		return ResponseEntity.ok("Arquivo processado com sucesso");
 	}
 

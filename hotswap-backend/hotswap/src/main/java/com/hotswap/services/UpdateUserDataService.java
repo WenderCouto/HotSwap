@@ -1,27 +1,31 @@
 package com.hotswap.services;
 
+import com.hotswap.model.User;
+import com.hotswap.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
-import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.hotswap.model.User;
-import com.hotswap.repository.UserRepository;
-
 @Service
 public class UpdateUserDataService {
-    UserRepository userRepository = new UserRepository();
-    String tempdir = userRepository.userJsonDbDir;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    UserObjectDataService userObjectDataService;
+
+    private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
 
     public boolean updateUserDataHandler(@RequestParam int registnumber, @RequestParam String username, @RequestParam String status) throws FileNotFoundException {
         User user = userRepository.findUserbyId(registnumber);
         if (user == null) {
             return false;
         }
-        File file = new File(tempdir);
+        File file = new File(userJsonDbDir);
         StringBuilder fileContent = new StringBuilder();
         Scanner scan = new Scanner(file);
         while (scan.hasNextLine()) {

@@ -1,6 +1,7 @@
 package com.hotswap.repository;
 
 import com.hotswap.model.User;
+import com.hotswap.services.UserObjectDataService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,11 +10,26 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
 public class UserRepository {
 
     public String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
+
+    private final UserObjectDataService userObjectDataService;
+
+    public UserRepository(UserObjectDataService userObjectDataService) {
+        this.userObjectDataService = userObjectDataService;
+    }
+
+    public User getUserObjectById(int registNumber) {
+        ConcurrentHashMap<Integer, User> usersMap = userObjectDataService.getUsers();
+        if (usersMap != null) {
+            return usersMap.get(registNumber);
+        }
+        return null;
+    }
 
     public User findUserbyId(int registernumber) throws FileNotFoundException {
         try {

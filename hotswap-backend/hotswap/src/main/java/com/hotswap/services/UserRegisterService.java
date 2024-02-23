@@ -35,8 +35,8 @@ public class UserRegisterService {
 		final String error = "Erro ao processar a solicitação.";
 		final String notFound = "Usuário não encontrado";
 	    try {
-	        User existingUser = userRepository.findUserbyId(registNumber);
-	        int maxRegistNumber = userRepository.findMaxRegistNumber(); //increase
+	        User existingUser = userRepository.getUserObjectById(registNumber);
+	        int maxRegistNumber = userRepository.findMaxRegistNumber();
 	        boolean isDuplicated = userRepository.findDuplicated(userName, password);
 	        if (existingUser != null) {
 	            return registered;
@@ -50,12 +50,11 @@ public class UserRegisterService {
 	            user.setRegistNumber(maxRegistNumber + 1);
 	        	user.setUserName(userName);
 	        	user.setPassword(passwordEncoder.encode(password));
-	        	user.setRoles("USER");
+	        	user.setRoles("user");
 				user.setStatus("Olá, Eu me chamo: " + user.getUserName());
 	        	user.setCreatedDate(LocalDateTime.now().toString());
-				Map<String, User> users = new ConcurrentHashMap<>();
-				users.put(String.valueOf(user.getRegistNumber()), user);
-
+				Map<Integer, User> users = new ConcurrentHashMap<>();
+				users.put(user.getRegistNumber(), user);
 				StructureJsonService structureJson = new StructureJsonService(user);
 	        	try {
 	        	    Path path = Paths.get("src/main/resources/static/JSON/dbHotSwapUsers.json");

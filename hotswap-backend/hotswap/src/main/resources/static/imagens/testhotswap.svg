@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" style="background-color: gray;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" preserveAspectRatio="xMidYMid meet" >
     <circle cx="60" cy="60" r="47.5" fill="black"/>
     <circle cx="60" cy="60" r="45" fill="white"/>
     <!-- Vai ficar escondido por hora -->

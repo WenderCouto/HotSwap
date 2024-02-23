@@ -34,11 +34,11 @@ public class WebSecurityConfig {
                 .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers(HttpMethod.PUT, "custom/api/imagem/upload").hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "custom/api/imagem/return").hasRole("USER")
+                        .requestMatchers(HttpMethod.PUT, "custom/api/imagem/upload").hasRole("user")
+                        .requestMatchers(HttpMethod.GET, "custom/api/imagem/return").hasRole("user")
                         .requestMatchers(HttpMethod.POST, "custom/api/user/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "custom/api/user/register").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "custom/api/user/exchange").hasRole("USER")
+                        .requestMatchers(HttpMethod.PUT, "custom/api/user/exchange").hasRole("user")
                         .anyRequest().authenticated()
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

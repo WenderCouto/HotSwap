@@ -3,14 +3,13 @@ package com.hotswap.controller;
 import com.hotswap.repository.UserRepository;
 import com.hotswap.services.TokenService;
 import com.hotswap.services.UpdateUserDataService;
+import com.hotswap.services.UserObjectDataService;
 import com.hotswap.services.UserRegisterService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
@@ -22,17 +21,15 @@ public class UserController {
     final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    UserRegisterService registerService;
+    private UserRegisterService registerService;
     @Autowired
-    UpdateUserDataService updateUserDataService;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private UpdateUserDataService updateUserDataService;
     @Autowired
     private TokenService tokenService;
     @Autowired
-    private AuthenticationManager authenticationManager;
+    UserObjectDataService userObjectDataService;
 
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestParam String username, @RequestParam String password) throws FileNotFoundException {
@@ -42,7 +39,6 @@ public class UserController {
         }
         String resultado = userRepository.findUserByCredentials(username, password);
         var token = tokenService.generateToken(Integer.parseInt(resultado));
-        //Coletar todos os dados do usuário do json, e guardar em uma coleção de Objetos user.
         return ResponseEntity.ok("Credenciais Válidas." + "\n" + token);
     }
 
@@ -77,14 +73,15 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Algo inesperado aconteceu.");
     }
 
-    @PutMapping("/exchange") // Not For Password, but token needed.
-    public ResponseEntity<String> updateJsonUser(@RequestParam int registnumber, String username, String status) throws IOException {
+    @PutMapping("/exchange")
+    public ResponseEntity<String> updateJsonUser(@RequestParam Integer registnumber, String username, String status) throws IOException {
+        if(registnumber == null){
+            ResponseEntity.badRequest().body("Algo deu errado.");
+        }
         boolean resultado = updateUserDataService.updateUserDataHandler(registnumber, username, status);
         if(!resultado){
             return ResponseEntity.badRequest().body("Parece que tivemos um problema.");
         }
         return ResponseEntity.ok().body("Atualização Realizada com Sucesso!");
     }
-
 }
-

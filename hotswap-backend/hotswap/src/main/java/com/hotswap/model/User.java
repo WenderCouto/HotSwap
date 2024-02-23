@@ -175,7 +175,7 @@ public class User implements UserDetails {
             roles = "";
         }
         return Arrays.stream(roles.split(","))
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.trim().toUpperCase()))
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role.trim()))
                 .collect(Collectors.toList());
     }
 
@@ -192,5 +192,4 @@ public class User implements UserDetails {
             throw new IllegalArgumentException("Invalid role found");
         }
     }
-
 }

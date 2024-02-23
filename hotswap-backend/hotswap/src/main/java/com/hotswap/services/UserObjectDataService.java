@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,24 +15,37 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class UserObjectDataService {
     final Logger log = LoggerFactory.getLogger(UserObjectDataService.class);
+    private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
+    private ConcurrentHashMap<Integer, User> users;
 
-    UserObjectDataService() {
-        reloadUserObject();
-        printUsers();
+    public UserObjectDataService() {
+        try {
+            Path filePath = Paths.get(userJsonDbDir);
+            if (Files.size(filePath) == 0) {
+                log.warn("O arquivo dbHotSwapUsers.json está vazio");
+            } else{
+                reloadUserObject();
+                printUsers();
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
-    private ConcurrentHashMap<String, User> users;
+    public ConcurrentHashMap<Integer, User> getUsers() {
+        return this.users;
+    }
 
-    public void printUsers() {
-        for (Map.Entry<String, User> entry : users.entrySet()) {
+    private void printUsers() {
+        for (Map.Entry<Integer, User> entry : users.entrySet()) {
             System.out.println("User Object - " + "Número de matricula: " + entry.getKey());
         }
     }
 
-    public void reloadUserObject() {
+    private void reloadUserObject() {
         users = new ConcurrentHashMap<>();
         try {
-            String content = new String(Files.readAllBytes(Paths.get("src/main/resources/static/JSON/dbHotSwapUsers.json")));
+            String content = new String(Files.readAllBytes(Paths.get(userJsonDbDir)));
             content = content.substring(2, content.length()-2);
             String[] userParts = content.split("\\},\\s*\\{");
             for (int i = 0; i < userParts.length; i++) {
@@ -59,7 +73,7 @@ public class UserObjectDataService {
                 user.setFotoPerfil(parts[6].split(":")[1].trim().replace("\"", ""));
                 user.setStatus(parts[7].split(":")[1].trim().replace("\"", ""));
                 user.isResetPassword(Boolean.parseBoolean(parts[8].split(":")[1].trim()));
-                users.put(String.valueOf(user.getRegistNumber()), user);
+                users.put(user.getRegistNumber(), user);
             }
         } catch (IOException e) {
             e.printStackTrace();

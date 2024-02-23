@@ -1,35 +1,13 @@
 [
   {
     "Número de Registro": 1,
-    "Nome de Usuário": "wender",
-    "Credenciais": "$2a$10$X.X6ARxwk4lBzLHy/7Fm5e03xR9BDy6k2aPtBSzWSU7Bj486op.wm",
+    "Nome de Usuário": "user",
+    "Credenciais": "$2a$10$LuymUP8KH/Kqv1AW7JN8cumtgWgaz908XOReLcuVa4Nm8jR2tGoMO",
     "Cargo": "user",
-    "Data de Criação": "22/02/2024 | 18:15:54s",
-    "Caminho de Imagem": "null",
-    "Foto de Perfil": "null",
-    "Recado": "Teste update",
-    "Reset de Credenciais": false
-  },
-  {
-    "Número de Registro": 2,
-    "Nome de Usuário": "mike",
-    "Credenciais": "$2a$10$jsnnOYYt6En731y3AjPDTuLqkrpN39oHSLkk42cMKtUKlKZS4mXG.",
-    "Cargo": "user",
-    "Data de Criação": "22/02/2024 | 19:17:14s",
-    "Caminho de Imagem": "null",
-    "Foto de Perfil": "null",
-    "Recado": "Olá, Eu me chamo: mike",
-    "Reset de Credenciais": false
-  },
-  {
-    "Número de Registro": 3,
-    "Nome de Usuário": "julia",
-    "Credenciais": "$2a$10$yMJcYD.2.dEDRevTzLwAJ.9zU6MPdLPboe1EA6ZN/uZviUrNvylBi",
-    "Cargo": "user",
-    "Data de Criação": "22/02/2024 | 21:33:18s",
-    "Caminho de Imagem": "null",
-    "Foto de Perfil": "null",
-    "Recado": "Olá, Eu me chamo: julia",
+    "Data de Criação": "23/02/2024 | 20:56:23s",
+    "Caminho de Imagem": "src/main/resources/static/imagens/perfil/imagensJPG/1-23_02_2024-_ca7ed84a-fcd4-4ce4-93fc-14042ded9f2f.jpg",
+    "Foto de Perfil": "http://localhost:8080/custom/api/imagem/return",
+    "Recado": "Olá, Eu me chamo: user",
     "Reset de Credenciais": false
   }
 ]

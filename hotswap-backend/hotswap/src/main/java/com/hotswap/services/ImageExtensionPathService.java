@@ -17,20 +17,28 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
 
 @Service
 public class ImageExtensionPathService {
+	@Autowired
+	UserObjectDataService userObjectDataService;
+
 	final Logger log = LoggerFactory.getLogger(ImageExtensionPathService.class);
 
-	String domainName = "http://localhost:8080/";
+	private String domainName = "http://localhost:8080/";
+
+	private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
 
 	private static String UPLOADED_FOLDER0 = "src/main/resources/static/imagens/perfil/imagensGIF/";
 	private static String UPLOADED_FOLDER1 = "src/main/resources/static/imagens/perfil/imagensJPG/";
@@ -53,7 +61,7 @@ public class ImageExtensionPathService {
 		log.info("Uma Imagem Sofreu Upload: " + file.getOriginalFilename() + ", Número do user: " + registnumber);
 		log.info("Role of User: " + roles);
 
-		User user = userRepository.findUserbyId(registnumber);
+		User user = userRepository.getUserObjectById(registnumber);
 
 		try {
 			byte[] bytes = file.getBytes();
@@ -115,11 +123,36 @@ public class ImageExtensionPathService {
 				Files.write(path.resolve(novoNome), bytes);
 				uploadImagePath = UPLOADED_FOLDER4 + novoNome;
 			}
+			url = domainName + "custom/api/imagem/return";
+
+			File dbFile = new File(userJsonDbDir);
+			StringBuilder fileContent = new StringBuilder();
+			Scanner scan = new Scanner(dbFile);
+			while (scan.hasNextLine()) {
+				String linha = scan.nextLine();
+				if (linha.contains("\"Número de Registro\": " + registnumber + ",")) {
+					fileContent.append(linha).append("\n");
+					while (scan.hasNextLine()) {
+						linha = scan.nextLine();
+						if (linha.contains("\"Caminho de Imagem\":")) {
+							linha = "    \"Caminho de Imagem\": \"" + uploadImagePath + "\",";
+						} else if (linha.contains("\"Foto de Perfil\":")) {
+							linha = "    \"Foto de Perfil\": \"" + url + "\",";
+						}
+						fileContent.append(linha).append("\n");
+						if (linha.contains("}")) {
+							break;
+						}
+					}
+				} else {
+					fileContent.append(linha).append("\n");
+				}
+			}
+			PrintWriter out = new PrintWriter(dbFile);
+			out.write(fileContent.toString());
+			out.close();
 
 			log.info("O caminho da imagem postada: " + uploadImagePath);
-			url = domainName + "custom/api/imagem/return"; // probleminha de duas barras
-			user.setPathImage(uploadImagePath); // guarda o caminho
-			user.setFotoPerfil(url);
             return "A imagem foi processada com sucesso";
 
 		} catch (IOException e) {
@@ -159,6 +192,31 @@ public class ImageExtensionPathService {
 				} else if (extension.equals("webp")) {
 					mediaType = MediaType.valueOf("image/webp");
 				}
+
+				File file = new File(userJsonDbDir);
+				StringBuilder fileContent = new StringBuilder();
+				Scanner scan = new Scanner(file);
+				while (scan.hasNextLine()) {
+					String linha = scan.nextLine();
+					if (linha.contains("\"Número de Registro\": " + registnumber + ",")) {
+						fileContent.append(linha).append("\n");
+						while (scan.hasNextLine()) {
+							linha = scan.nextLine();
+							if (linha.contains("\"Caminho de Imagem\":")) {
+								linha = "    \"Caminho de Imagem\": \"" + fullPath + "\",";
+							}
+							fileContent.append(linha).append("\n");
+							if (linha.contains("}")) {
+								break;
+							}
+						}
+					} else {
+						fileContent.append(linha).append("\n");
+					}
+				}
+				PrintWriter out = new PrintWriter(file);
+				out.write(fileContent.toString());
+				out.close();
 				return ResponseEntity.ok().contentType(mediaType).body(resource);
 			} else {
 				log.error("Arquivo não existe ou não é legivel " + path);
