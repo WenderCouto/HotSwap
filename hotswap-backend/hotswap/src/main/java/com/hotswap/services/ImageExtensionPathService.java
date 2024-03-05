@@ -61,7 +61,7 @@ public class ImageExtensionPathService {
 		log.info("Uma Imagem Sofreu Upload: " + file.getOriginalFilename() + ", Número do user: " + registnumber);
 		log.info("Role of User: " + roles);
 
-		User user = userRepository.getUserObjectById(registnumber);
+		User user = userRepository.getUserObjectById(registnumber).getUser();
 
 		try {
 			byte[] bytes = file.getBytes();

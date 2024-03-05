@@ -19,6 +19,7 @@ public class UserObjectDataService {
     private ConcurrentHashMap<Integer, User> users;
 
     public UserObjectDataService() {
+        users = new ConcurrentHashMap<>();
         try {
             Path filePath = Paths.get(userJsonDbDir);
             if (Files.size(filePath) == 0) {

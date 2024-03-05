@@ -1,13 +1,14 @@
 package com.hotswap.model;
 
+import jakarta.persistence.Transient;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import jakarta.persistence.Transient;
-
 public class ChatMessage {
     private String sender;
-    private String receiver;
+    private int receiver;
+    private String receiverName;
     private String content;
     private String date;
 
@@ -32,12 +33,20 @@ public class ChatMessage {
         this.sender = sender;
     }
 
-    public String getReceiver() {
+    public int getReceiver() {
         return receiver;
     }
 
-    public void setReceiver(String receiver) {
+    public void setReceiver(int receiver) {
         this.receiver = receiver;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
+    }
+
+    public String getReceiverName() {
+        return receiverName;
     }
 
     public String getContent() {

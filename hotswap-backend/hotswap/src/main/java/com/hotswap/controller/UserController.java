@@ -1,10 +1,7 @@
 package com.hotswap.controller;
 
 import com.hotswap.repository.UserRepository;
-import com.hotswap.services.TokenService;
-import com.hotswap.services.UpdateUserDataService;
-import com.hotswap.services.UserObjectDataService;
-import com.hotswap.services.UserRegisterService;
+import com.hotswap.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,9 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
     @Autowired
-    UserObjectDataService userObjectDataService;
+    private UserObjectDataService userObjectDataService;
+    @Autowired
+    private MessageWritingService messageWritingService;
 
     @PostMapping("/login")
     public ResponseEntity<?> userLogin(@RequestParam String username, @RequestParam String password) throws FileNotFoundException {
@@ -43,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> userRegister(Integer registnumber, @RequestParam String username, @RequestParam String password) throws IOException {
+    public ResponseEntity<String> userRegister(@RequestParam String username, @RequestParam String password) throws IOException {
         final String permitRegister = "Não é Permitido Usuários Clonados.\n"
                 + "Permitido Apenas Dois Usúarios Com Credenciais Idênticas.";
         final String hasTwoProfiles = "Usuário Possui dois Perfis";
@@ -52,15 +51,13 @@ public class UserController {
         final String notFound = "Usuário não encontrado";
         final String error = "Erro ao processar a solicitação.";
 
-        if(registnumber == null){
-            ResponseEntity.badRequest().body("Algo deu errado.");
-        }
+        int registnumber = 0;
         String resultado = registerService.registerLogic(registnumber, username, password);
         switch (resultado) {
             case permitRegister:
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(permitRegister);
             case hasTwoProfiles:
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(hasTwoProfiles);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Operação não permitida.");
             case successMessage:
                 return ResponseEntity.status(HttpStatus.OK).body(successMessage);
             case registered:

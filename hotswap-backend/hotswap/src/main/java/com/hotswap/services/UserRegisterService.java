@@ -25,8 +25,14 @@ public class UserRegisterService {
 	UserRepository userRepository;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	@Autowired
+	MessageWritingService messageWritingService;
+	@Autowired
+	UserObjectDataService userObjectDataService;
 
 	final Logger log = LoggerFactory.getLogger(UserRegisterService.class);
+
+	private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
 
 	public String registerLogic(@RequestParam int registNumber, @RequestParam String userName, @RequestParam String password) throws IOException {
 		final String registered = "Usuário já possui cadastro.";
@@ -35,7 +41,7 @@ public class UserRegisterService {
 		final String error = "Erro ao processar a solicitação.";
 		final String notFound = "Usuário não encontrado";
 	    try {
-	        User existingUser = userRepository.getUserObjectById(registNumber);
+	        User existingUser = userRepository.getUserObjectById(registNumber).getUser();
 	        int maxRegistNumber = userRepository.findMaxRegistNumber();
 	        boolean isDuplicated = userRepository.findDuplicated(userName, password);
 	        if (existingUser != null) {
@@ -47,8 +53,8 @@ public class UserRegisterService {
 	        else {
 	    		User user = new User();
 
-	            user.setRegistNumber(maxRegistNumber + 1);
-	        	user.setUserName(userName);
+				user.setRegistNumber(maxRegistNumber + 1);
+				user.setUserName(userName);
 	        	user.setPassword(passwordEncoder.encode(password));
 	        	user.setRoles("user");
 				user.setStatus("Olá, Eu me chamo: " + user.getUserName());
@@ -57,21 +63,22 @@ public class UserRegisterService {
 				users.put(user.getRegistNumber(), user);
 				StructureJsonService structureJson = new StructureJsonService(user);
 	        	try {
-	        	    Path path = Paths.get("src/main/resources/static/JSON/dbHotSwapUsers.json");
+	        	    Path path = Paths.get(userJsonDbDir);
 	        	    String content = new String(Files.readAllBytes(path));
 
 	        	    if (content.isEmpty()) {
 	        	        String json = structureJson.writeJsonUser(user);
 	        	        Files.write(path, json.getBytes());
-	        	        log.info("Arquivo JSON criado com sucesso!");
+						log.info("Arquivo JSON HotswapUSer criado com sucesso!");
 	        	    } else {
 	        	        StringBuilder existingJson = new StringBuilder(content);
 	        	        String newUser = structureJson.addNewUserObj(existingJson, user);
 	        	        Files.write(path, newUser.getBytes());
 	        	        log.info("Arquivo JSON de usuários atualizado com sucesso!");
 	        	    }
-
-	        	    return success;
+					String message = "";
+					messageWritingService.messageWriter(registNumber, userName, registNumber, message);
+					return success;
 	        	} catch (IOException e) {
 	        	    e.printStackTrace();
 	        	    return error;

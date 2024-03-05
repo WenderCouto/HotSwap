@@ -1,8 +1,6 @@
 package com.hotswap.controller;
 
-import com.hotswap.repository.UserRepository;
 import com.hotswap.services.ImageExtensionPathService;
-import com.hotswap.services.UserObjectDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +17,7 @@ import java.io.FileNotFoundException;
 public class ProfileImgController {
 
 	@Autowired
-	UserRepository userRepository;
-	@Autowired
-	ImageExtensionPathService imgServe;
-	@Autowired
-	UserObjectDataService userObjectDataService;
+	private ImageExtensionPathService imgServe;
 
 	@RequestMapping(value = "/upload", method = RequestMethod.PUT)
 	public ResponseEntity<?> putUserImagem(@RequestParam("file") MultipartFile file, Integer registnumber, String roles) throws FileNotFoundException {

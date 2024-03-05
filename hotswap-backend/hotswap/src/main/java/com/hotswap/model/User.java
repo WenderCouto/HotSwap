@@ -185,7 +185,7 @@ public class User implements UserDetails {
     }
 
     public void validateRoles() {
-        Set<String> validRoles = Set.of("user", "admin"); //revisar
+        Set<String> validRoles = Set.of("user", "admin", "staff");
         List<String> rolesList = Arrays.asList(roles.split(","));
 
         if (!rolesList.stream().allMatch(validRoles::contains)) {

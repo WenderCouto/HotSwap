@@ -15,15 +15,13 @@ import java.util.Scanner;
 public class UpdateUserDataService {
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    UserObjectDataService userObjectDataService;
 
     private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
 
     public boolean updateUserDataHandler(@RequestParam int registnumber, @RequestParam String username, @RequestParam String status) throws FileNotFoundException {
-        User user = userRepository.findUserbyId(registnumber);
+        User user = userRepository.getUserObjectById(registnumber).getUser();
         if (user == null) {
-            return false;
+
         }
         File file = new File(userJsonDbDir);
         StringBuilder fileContent = new StringBuilder();

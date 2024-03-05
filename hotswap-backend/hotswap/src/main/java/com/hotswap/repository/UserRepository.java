@@ -1,15 +1,15 @@
 package com.hotswap.repository;
 
+import com.hotswap.DTO.UserResult;
 import com.hotswap.model.User;
 import com.hotswap.services.UserObjectDataService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.*;
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
@@ -23,12 +23,15 @@ public class UserRepository {
         this.userObjectDataService = userObjectDataService;
     }
 
-    public User getUserObjectById(int registNumber) {
-        ConcurrentHashMap<Integer, User> usersMap = userObjectDataService.getUsers();
+    public UserResult getUserObjectById(int registNumber) {
+        UserObjectDataService userObjectDataService1 = new UserObjectDataService();
+        ConcurrentHashMap<Integer, User> usersMap = userObjectDataService1.getUsers();
+        UserResult result = new UserResult();
         if (usersMap != null) {
-            return usersMap.get(registNumber);
+            result.setUser(usersMap.get(registNumber));
         }
-        return null;
+        result.setRegistNumber(registNumber);
+        return result;
     }
 
     public User findUserbyId(int registernumber) throws FileNotFoundException {
@@ -119,28 +122,29 @@ public class UserRepository {
         return "Usuário ou senha Inválidos";
     }
 
-
     public boolean findDuplicated(@RequestParam String username, @RequestParam String password) {
+        int count = 0;
         try {
             File file = new File(userJsonDbDir);
-            Set<String> userCredentials = new HashSet<>();
             BufferedReader br = new BufferedReader(new FileReader(file));
             String linha;
             while ((linha = br.readLine()) != null) {
                 if (linha.trim().startsWith("\"Nome de Usuário\":")) {
                     String userNameMatcher = linha.split(":")[1].trim();
                     userNameMatcher = userNameMatcher.substring(1, userNameMatcher.length() - 2);
-                    linha = br.readLine();
-                    if (linha.trim().startsWith("\"Credenciais\":")) {
-                        String passwordMatcher = linha.split(":")[1].trim();
-                        passwordMatcher = passwordMatcher.substring(1, passwordMatcher.length() - 2);
-                        String userCredentialsKey = userNameMatcher + "|" + passwordMatcher;
-                        // Verifica se as credenciais recebidas pelo endpoint já existem
-                        String newUserCredentialsKey = username + "|" + password;
-                        if (userCredentialsKey.equals(newUserCredentialsKey)) {
-                            return true;
+                    if (userNameMatcher.equals(username)) {
+                        linha = br.readLine();
+                        if (linha.trim().startsWith("\"Credenciais\":")) {
+                            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                            String storedPassword = linha.split(":")[1].trim();
+                            storedPassword = storedPassword.substring(1, storedPassword.length() - 2);
+                            if (passwordEncoder.matches(password, storedPassword)) {
+                                count++;
+                                if (count >= 1) {
+                                    return true;
+                                }
+                            }
                         }
-                        userCredentials.add(userCredentialsKey);
                     }
                 }
             }
