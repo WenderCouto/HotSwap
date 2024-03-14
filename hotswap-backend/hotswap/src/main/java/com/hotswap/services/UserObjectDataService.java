@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class UserObjectDataService {
     final Logger log = LoggerFactory.getLogger(UserObjectDataService.class);
-    private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
+    private final String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
     private ConcurrentHashMap<Integer, User> users;
 
     public UserObjectDataService() {
@@ -39,7 +39,7 @@ public class UserObjectDataService {
 
     private void printUsers() {
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
-            System.out.println("User Object - " + "Número de matricula: " + entry.getKey());
+            System.out.println("User Object - " + "Número de Registro: " + entry.getKey());
         }
     }
 

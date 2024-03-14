@@ -1,6 +1,7 @@
 package com.hotswap.repository;
 
 import com.hotswap.model.ChatMessage;
+import com.hotswap.services.MessageObjectDataService;
 import com.hotswap.services.StructureJsonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,12 @@ public class MessageRepository {
     private StructureJsonService structureJsonService;
 
     public String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapChat.json";
+
+    private final MessageObjectDataService messageObjectDataService;
+
+    public MessageRepository(MessageObjectDataService messageObjectDataService) {
+        this.messageObjectDataService = messageObjectDataService;
+    }
 
     public ChatMessage findMessageBindbyId(int numeroRegistro, int receptor, String message) throws IOException {
         Path path = Paths.get(userJsonDbDir);

@@ -33,7 +33,7 @@ public class ProfileImgController {
 	}
 
 	@RequestMapping(value = "/return", method = RequestMethod.GET)
-	public ResponseEntity<?> getUserImagemWrapper(Integer registnumber) {
+	public ResponseEntity<?> getUserImagemWrapper(@RequestParam Integer registnumber) {
 		if (registnumber == null) {
 			return new ResponseEntity<>("Opa, parece que seu número de registro único não está presente.", HttpStatus.BAD_REQUEST);
 		}

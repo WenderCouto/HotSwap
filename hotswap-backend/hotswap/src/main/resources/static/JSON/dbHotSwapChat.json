@@ -1,0 +1,19 @@
+[
+  {
+    "Número de Registro": 1,
+    "Transmissor": "wender",
+    "Receptor": [
+       {
+          "Identificador Único": 1,
+          "Nome do Receptor": "wender",
+          "Conteúdo": [
+            {
+              "Mensagem": "",
+              "Data": "14/03/2024 | 19:57:51s",
+              "Binding": "1:1"
+            }
+          ]
+       }
+    ]
+  }
+]

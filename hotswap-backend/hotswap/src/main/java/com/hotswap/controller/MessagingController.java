@@ -2,6 +2,7 @@ package com.hotswap.controller;
 
 import com.hotswap.model.User;
 import com.hotswap.repository.UserRepository;
+import com.hotswap.services.MessageObjectDataService;
 import com.hotswap.services.MessageWritingService;
 import com.hotswap.services.UserObjectDataService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class MessagingController {
     private MessageWritingService run;
     @Autowired
     UserObjectDataService userObjectDataService;
+    @Autowired
+    MessageObjectDataService messageObjectDataService;
 
     @PostMapping("/enviar")
     public ResponseEntity<?> sendMessage(@RequestParam Integer registnumber, String username, @RequestParam Integer receiver, String message) throws IOException {

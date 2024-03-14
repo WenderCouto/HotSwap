@@ -1,15 +1,30 @@
 package com.hotswap.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ChatMessage {
-    private String sender;
-    private int receiver;
+
+    @NotEmpty
+    @JsonProperty("Número de Registro")
+    private int registerNumber;
+    @NotEmpty
+    @JsonProperty("Transmissor")
+    private String transmissor;
+    @NotEmpty
+    @JsonProperty("Nome do Receptor")
     private String receiverName;
+    @NotEmpty
+    @JsonProperty("Binding")
+    private String binding;
+    @JsonProperty("Mensagem")
     private String content;
+    @NotEmpty
+    @JsonProperty("Data")
     private String date;
 
     @Transient
@@ -25,20 +40,20 @@ public class ChatMessage {
 
 	public ChatMessage() {}
 
-    public String getSender() {
-        return sender;
+    public String getTransmissor() {
+        return transmissor;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    public void setTransmissor(String transmissor) {
+        this.transmissor = transmissor;
     }
 
-    public int getReceiver() {
-        return receiver;
+    public int getRegisterNumber() {
+        return registerNumber;
     }
 
-    public void setReceiver(int receiver) {
-        this.receiver = receiver;
+    public void setRegisterNumber(int registerNumber) {
+        this.registerNumber = registerNumber;
     }
 
     public void setReceiverName(String receiverName) {
@@ -49,6 +64,12 @@ public class ChatMessage {
         return receiverName;
     }
 
+    public String getBinding(){
+        return binding;
+    }
+    public void setBinding(String binding) {
+        this.binding = binding;
+    }
     public String getContent() {
         return content;
     }
@@ -56,4 +77,18 @@ public class ChatMessage {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "\n" +
+                "ChatMessage{" + "\n" +
+                registerNumber + "\n" +
+                transmissor + "\n" +
+                receiverName + "\n" +
+                content + "\n" +
+                date + "\n" +
+                binding + "\n" +
+                '}';
+    }
+
 }

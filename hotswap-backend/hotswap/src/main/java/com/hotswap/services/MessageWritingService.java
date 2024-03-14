@@ -43,9 +43,9 @@ public class MessageWritingService {
         ChatMessage chatStructure = new ChatMessage();
 
         user.setRegistNumber(maxRegistNumber);
-        chatStructure.setSender(userName);
+        chatStructure.setTransmissor(userName);
         if(existingUser == null && registNumber.equals(receiver)){
-            chatStructure.setReceiver(maxRegistNumber);
+            chatStructure.setRegisterNumber(maxRegistNumber);
             chatStructure.setReceiverName(userName);
             chatStructure.setContent(message);
             chatStructure.setDate(LocalDateTime.now().toString());
@@ -56,7 +56,7 @@ public class MessageWritingService {
             chatStructure.setDate(LocalDateTime.now().toString());
         }
         else {
-            chatStructure.setReceiver(receiver);
+            chatStructure.setRegisterNumber(receiver);
             chatStructure.setContent(message);
             chatStructure.setReceiverName(existingReceiver.getUserName());
             chatStructure.setDate(LocalDateTime.now().toString());

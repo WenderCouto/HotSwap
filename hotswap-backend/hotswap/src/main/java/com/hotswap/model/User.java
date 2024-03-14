@@ -29,6 +29,7 @@ public class User implements UserDetails {
     @NotEmpty
     @JsonProperty("Cargo")
     private String roles;
+    @NotEmpty
     @JsonProperty("Data de Criação")
     private String createdDate;
     @JsonProperty("Caminho de Imagem")

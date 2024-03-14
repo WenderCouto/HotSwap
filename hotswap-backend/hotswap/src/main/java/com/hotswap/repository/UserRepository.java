@@ -2,6 +2,7 @@ package com.hotswap.repository;
 
 import com.hotswap.DTO.UserResult;
 import com.hotswap.model.User;
+import com.hotswap.services.MessageObjectDataService;
 import com.hotswap.services.UserObjectDataService;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,8 +19,10 @@ public class UserRepository {
     public String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
 
     private final UserObjectDataService userObjectDataService;
+    private final MessageObjectDataService messageObjectDataService;
 
-    public UserRepository(UserObjectDataService userObjectDataService) {
+    public UserRepository(UserObjectDataService userObjectDataService, MessageObjectDataService messageObjectDataService) {
+        this.messageObjectDataService = messageObjectDataService;
         this.userObjectDataService = userObjectDataService;
     }
 

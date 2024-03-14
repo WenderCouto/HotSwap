@@ -39,7 +39,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.POST, "custom/api/user/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "custom/api/user/register").permitAll()
                         .requestMatchers(HttpMethod.PUT, "custom/api/user/exchange").hasRole("user")
-                        .requestMatchers(HttpMethod.POST, "custom/api/shoot/enviar").authenticated()
+                        .requestMatchers(HttpMethod.POST, "custom/api/shoot/enviar").hasRole("user")
                         .anyRequest().authenticated()
                 ).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
