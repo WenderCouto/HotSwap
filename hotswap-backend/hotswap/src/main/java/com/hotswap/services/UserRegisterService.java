@@ -41,7 +41,7 @@ public class UserRegisterService {
 		final String error = "Erro ao processar a solicitação.";
 		final String notFound = "Usuário não encontrado";
 	    try {
-	        User existingUser = userRepository.getUserObjectById(registNumber).getUser();
+	        User existingUser = userRepository.getUserObjectById(registNumber);
 	        int maxRegistNumber = userRepository.findMaxRegistNumber();
 	        boolean isDuplicated = userRepository.findDuplicated(userName, password);
 	        if (existingUser != null) {

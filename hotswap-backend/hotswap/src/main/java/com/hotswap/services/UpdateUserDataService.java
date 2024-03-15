@@ -19,7 +19,7 @@ public class UpdateUserDataService {
     private String userJsonDbDir = "src/main/resources/static/JSON/dbHotSwapUsers.json";
 
     public boolean updateUserDataHandler(@RequestParam int registnumber, @RequestParam String username, @RequestParam String status) throws FileNotFoundException {
-        User user = userRepository.getUserObjectById(registnumber).getUser();
+        User user = userRepository.getUserObjectById(registnumber);
         if (user == null) {
 
         }

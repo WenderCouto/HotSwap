@@ -7,12 +7,10 @@ import com.hotswap.services.MessageWritingService;
 import com.hotswap.services.UserObjectDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("custom/api/shoot")
@@ -27,10 +25,12 @@ public class MessagingController {
     MessageObjectDataService messageObjectDataService;
 
     @PostMapping("/enviar")
-    public ResponseEntity<?> sendMessage(@RequestParam Integer registnumber, String username, @RequestParam Integer receiver, String message) throws IOException {
-        if(registnumber == null || receiver == null) {
-            return ResponseEntity.badRequest().body("Número de registro ou Número do receptor ausente(s).");
+    public ResponseEntity<?> sendMessage(@RequestBody Map<String, String> payload) throws IOException {
+        if(payload.get("registnumber") == null || payload.get("receiver") == null || payload.get("registnumber").isEmpty() || payload.get("receiver").isEmpty()){
+            return ResponseEntity.badRequest().body("Preencha todos os dados corretamente.");
         }
+        int registnumber = Integer.parseInt(payload.get("registnumber")), receiver = Integer.parseInt(payload.get("receiver"));
+        String username = payload.get("username"), message = payload.get("message");
         User existingReceiver = userRepository.findUserbyId(receiver);
         if(existingReceiver == null){
             return ResponseEntity.badRequest().body("Receptor Inexistente.");

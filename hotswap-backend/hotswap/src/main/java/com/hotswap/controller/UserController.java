@@ -79,15 +79,24 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("Algo inesperado aconteceu.");
     }
 
-    @PutMapping("/exchange") //verificar
-    public ResponseEntity<String> updateJsonUser(@RequestParam Integer registnumber, String username, String status) throws IOException {
-        if(registnumber == null){
-            ResponseEntity.badRequest().body("Algo deu errado.");
+    @PutMapping("/exchange")
+    public ResponseEntity<String> updateJsonUser(@RequestBody Map<String, String> payload) {
+        try {
+            if(payload.get("registnumber") == null || payload.get("username") == null || payload.get("status") == null){
+                return ResponseEntity.badRequest().body("Dados Incorretos.");
+            }
+            int registnumber = Integer.parseInt(payload.get("registnumber"));
+            String username = payload.get("username"), status = payload.get("status");
+            boolean resultado = updateUserDataService.updateUserDataHandler(registnumber, username, status);
+            if(!resultado){
+                return ResponseEntity.badRequest().body("Parece que tivemos um problema.");
+            }
+            return ResponseEntity.ok().body("Atualização Realizada com Sucesso!");
+        } catch (NumberFormatException e) {
+            return ResponseEntity.badRequest().body("Número de registro inválido.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro interno do servidor.");
         }
-        boolean resultado = updateUserDataService.updateUserDataHandler(registnumber, username, status);
-        if(!resultado){
-            return ResponseEntity.badRequest().body("Parece que tivemos um problema.");
-        }
-        return ResponseEntity.ok().body("Atualização Realizada com Sucesso!");
     }
+
 }

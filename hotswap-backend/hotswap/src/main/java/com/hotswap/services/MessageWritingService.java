@@ -37,7 +37,7 @@ public class MessageWritingService {
         final String errorMessage = "A Menssagem não pode ser enviada!";
         int maxRegistNumber = userRepository.findMaxRegistNumber();
         User existingUser = userRepository.findUserbyId(registNumber);
-        User existingReceiver = userRepository.getUserObjectById(receiver).getUser();
+        User existingReceiver = userRepository.getUserObjectById(receiver);
         User user = new User();
 
         ChatMessage chatStructure = new ChatMessage();

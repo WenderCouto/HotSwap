@@ -26,15 +26,16 @@ public class UserRepository {
         this.userObjectDataService = userObjectDataService;
     }
 
-    public UserResult getUserObjectById(int registNumber) {
+    public User getUserObjectById(int registNumber) {
         UserObjectDataService userObjectDataService1 = new UserObjectDataService();
-        ConcurrentHashMap<Integer, User> usersMap = userObjectDataService1.getUsers();
+        MessageObjectDataService messageObjectDataService1 = new MessageObjectDataService();
+        ConcurrentHashMap<Integer, User> usersMap = userObjectDataService.getUsers();
         UserResult result = new UserResult();
         if (usersMap != null) {
-            result.setUser(usersMap.get(registNumber));
+            return usersMap.get(registNumber);
         }
         result.setRegistNumber(registNumber);
-        return result;
+        return null;
     }
 
     public User findUserbyId(int registernumber) throws FileNotFoundException {
